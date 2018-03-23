@@ -1,0 +1,11 @@
+min-tokens: 50
+min-lines: 3
+
+languages:
+  - typescript
+
+files:
+  - "src/*"
+  - "src/**/*"
+  - "test/*"
+  - "test/**/*"

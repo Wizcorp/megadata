@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "lib": ["es2015", "es2017"],
+    "declaration": true,
+    "experimentalDecorators": true,
+    "alwaysStrict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "removeComments": false,
+    "inlineSources": true,
+    "inlineSourceMap": true,
+    "baseUrl": "./",
+    "paths": {
+      "megadata": ["./src/index.ts"],
+      "megadata/*": ["./src/*"],
+      "test/*": ["./test/*"]
+    }
+  }
+}
