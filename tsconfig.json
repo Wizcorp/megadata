@@ -15,7 +15,8 @@
     "paths": {
       "megadata": ["./src/index.ts"],
       "megadata/*": ["./src/*"],
-      "test/*": ["./test/*"]
+      "test/*": ["./test/*"],
+      "benchmarks": ["./benchmarks/index.ts"]
     }
   }
 }

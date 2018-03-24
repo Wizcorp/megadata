@@ -5,14 +5,24 @@
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
   "scripts": {
+    "--------------------- HOOKS ----------------------": "",
     "postinstall": "node -e \"process.exit(require('is-there')('./lib') ? 0 : 1)\" || npm run build",
-    "build": "tsc --project ./src",
     "prepublish": "run-s test build",
-    "test:lint": " echo 'Check TypeScript code for style issues' &&   tslint --type-check -e \"node_modules/**/*.ts\" --format codeFrame --project .",
-    "test:cpd": "  echo 'Check the codebase for copy-pasted code' &&  jscpd --config .cpd.yaml",
-    "test:unit": " echo 'Run unit tests' &&                           mocha --compilers ts:ts-node/register -R mocha-reporter ./test/index.ts",
-    "test:coverage": " echo 'Run unit tests and check coverage level' &&  nyc --check-coverage --reporter=text --reporter=html npm run test:unit",
-    "test:git": "  echo 'Make sure all commits are signed' &&         git-signed",
+    "--------------------- BUILD TASKS ----------------------": "",
+    "build": "tsc --project ./src",
+    "--------------------- BENCHMARKS ----------------------": "",
+    "benchmark:node": "          electron ./benchmarks/node",
+    "benchmark:browser": "       electron ./benchmarks/browser",
+    "benchmark:node:binary": "   electron ./benchmarks/node Binary",
+    "benchmark:browser:binary": "electron ./benchmarks/browser Binary",
+    "benchmark:node:json": "     electron ./benchmarks/node Json",
+    "benchmark:browser:json": "  electron ./benchmarks/browser Json",
+    "--------------------- TESTS ----------------------": "",
+    "test:lint": " echo 'Check TypeScript code for style issues';      tslint --type-check -e \"node_modules/**/*.ts\" --format codeFrame --project .",
+    "test:cpd": "  echo 'Check the codebase for copy-pasted code';     jscpd --config .cpd.yaml",
+    "test:unit": " echo 'Run unit tests';                              mocha --compilers ts:ts-node/register -R mocha-reporter ./test/index.ts",
+    "test:coverage": " echo 'Run unit tests and check coverage level'; nyc --check-coverage --reporter=text --reporter=html npm run test:unit",
+    "test:git": "  echo 'Make sure all commits are signed';            git-signed",
     "test": "run-s test:*"
   },
   "nyc": {
@@ -53,20 +63,28 @@
   "devDependencies": {
     "@types/mocha": "^2.2.48",
     "@types/node": "7.0.21",
+    "babel-loader": "^7.1.4",
+    "copy-webpack-plugin": "^4.5.1",
     "git-message": "^2.0.2",
     "git-signed": "^0.1.3",
+    "html-webpack-plugin": "^3.1.0",
     "jscpd": "^0.6.17",
     "mocha": "^5.0.4",
     "mocha-reporter": "^0.1.1",
     "npm-run-all": "^4.1.2",
     "nyc": "^11.6.0",
+    "ts-loader": "^4.1.0",
     "ts-node": "^5.0.1",
     "tsconfig-paths": "^3.1.3",
+    "tsconfig-paths-webpack-plugin": "^3.0.2",
     "tslint": "^5.9.1",
-    "typescript": "^2.7.2"
+    "typescript": "^2.7.2",
+    "webpack": "^4.2.0",
+    "webpack-cli": "^2.0.13",
+    "webpack-dev-server": "^3.1.1"
   },
   "dependencies": {
-    "is-there": "4.4.2",
-    "eventemitter2": "^5.0.1"
+    "eventemitter2": "^5.0.1",
+    "is-there": "4.4.2"
   }
 }

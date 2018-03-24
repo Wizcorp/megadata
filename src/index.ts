@@ -1,5 +1,3 @@
-import * as path from 'path'
-
 import BinarySerializationFormat from './classes/BinarySerializationFormat'
 import MessageType, { IMessageType } from './classes/MessageType'
 import { ISerializationFormat } from './classes/SerializationFormat'
@@ -15,6 +13,19 @@ export type TypeDecoratorReturn = (target: any) => void
 export type TypeDecorator<I> = (id: I, format?: ISerializationFormat) => TypeDecoratorReturn
 
 let initialized = false
+
+/**
+ * Extract the parent directory and normalize path to forward-slashes
+ *
+ * Not using Node's path library since it is not available in the browsers
+ *
+ * @param path
+ */
+function getPath(path: string) {
+  const dir = path.replace(/\\/g, '').split('/')
+  dir.pop()
+  return dir.join('/')
+}
 
 /**
  * 'megadata' type decorator generator
@@ -34,7 +45,7 @@ export default function generateTypeDecorator<I extends number>(
 
   // Register runtime information onto the MessageType base class
   MessageType.getTypeClassById = (id: number) => typesRegister.get(id as any) as any
-  MessageType.typesDirectory = path.join(path.dirname(parentModule.id), 'types')
+  MessageType.typesDirectory = `${getPath(parentModule.id)}/types`
   MessageType.typeIds = parentModule.exports.TypeIds
 
   return (id: I, format: ISerializationFormat = defaultSerializationFormat) => {
