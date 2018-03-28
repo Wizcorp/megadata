@@ -16,7 +16,10 @@
       "megadata": ["./src/index.ts"],
       "megadata/*": ["./src/*"],
       "test/*": ["./test/*"],
-      "benchmarks": ["./benchmarks/index.ts"]
+      "benchmarks": ["./benchmarks/index.ts"],
+      "shared/*": ["./example/shared/*"],
+      "client/*": ["./example/client/*"],
+      "server/*": ["./example/server/*"]
     }
   }
 }

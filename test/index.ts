@@ -1,16 +1,10 @@
-// Support config paths from the tsconfig.json file
-// See: https://www.npmjs.com/package/tsconfig-paths
-const tsConfig = require('./tsconfig.json')
-const tsConfigPaths = require('tsconfig-paths')
-
-tsConfigPaths.register(tsConfig.compilerOptions)
-
 import megadata, { TypeDecorator } from 'megadata'
-import Binary from 'megadata/classes/BinarySerializationFormat'
 import * as assert from 'assert'
 
+const types = require.context('./types')
+
 export const enum TypeIds {
-  MissingTypeClassFile,
+  TypeFileIsADirectory,
   DoesNotExposeDefault,
   Binary,
   EmptyBinary,
@@ -21,13 +15,25 @@ export const enum TypeIds {
   Double
 }
 
-export const Type: TypeDecorator<TypeIds> = megadata(module)
+export const Type: TypeDecorator<TypeIds> = megadata(module, types)
 
 describe('megadata', () => {
   describe('@Type', () => {
+    it('Attempting initialize without exporting a TypeIds enum will throw', () => {
+      const id = 'badModule'
+
+      try {
+        megadata<TypeIds>({ id, exports: {} } as NodeModule, types)
+      } catch (error) {
+        return assert.equal(error.message, `${id} does not export a TypeIds enum!`)
+      }
+
+      throw new Error('Did not throw')
+    })
+
     it('Attempting to re-run the initialization should throw', () => {
       try {
-        megadata<TypeIds>(module, Binary)
+        megadata<TypeIds>(module, types)
       } catch (error) {
         return assert.equal(error.message, 'megadata has already been initialized')
       }

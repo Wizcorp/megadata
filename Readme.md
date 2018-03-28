@@ -135,6 +135,74 @@ export default class Game {
 }
 ```
 
+### Messages and events auto-loading
+
+#### Running a Node.js server with auto-loading
+
+Auto-loading uses `require.context`, which is a webpack-specific
+API. When using Megadata with auto-loading in Node.js, you will
+therefore need to load the mock provided by the library.
+
+```shell
+ts-node -r megadata/register index.ts
+```
+
+#### Setting types auto-loading
+
+> shared/messages/index.ts
+
+```typescript
+import megadata, { TypeDecorator } from 'megadata'
+
+const types = require.context('./types/')
+
+export enum TypeIds {
+  Join,
+  [...]
+}
+
+export const Type: TypeDecorator<TypeIds> = megadata(module, types)
+```
+
+The following code will dynamically load type classes on demand from
+the `shared/messages/types` folder. If no listeners were ever set to
+listen for messages of this type, an `Event.Unknown` event will be 
+emitted (see below).
+
+#### Setting event handlers auto-loading for a class inheriting MessageEmitter
+
+> server/classes/Player.ts
+
+```typescript
+import MessageEmitter, { AutoloadEvents } from 'megadata/classes/MessageEmitter'
+
+const events = require.context('../events/')
+
+@AutoloadEvents(events)
+export default class Player extends MessageEmitter {}
+```
+
+A given message emitter may end up handling a large number or events. Event
+handlers auto-loading provides a mechanism for breaking event handling
+down into event handler files that are auto-loaded on demand. In this
+case, we will auto-load all events under `server/events`.
+
+
+> server/events/Join.ts
+
+```typescript
+import Player from '../classes/Player'
+import Join from 'shared/messages/types/Join'
+
+export default function (player: Player) {
+  player.on(Join, (message) => console.log('Received join event', message))
+}
+```
+
+Event handler files export a single default function which will receive 
+a message emitter instance; you may then set the even listeners according to
+your needs.
+
 ### Custom serialization
 
 > shared/messages/classes/CustomSerializationFormat.ts
@@ -157,23 +225,6 @@ export default class CustomSerializationFormat extends SerializationFormat {
 You can create your own custom serialization format. Above is a quick stub, but
 you should have a look at the [default serialization formats](./classes) provided
 by megadata.
-
-> shared/messages/index.ts
-
-```typescript
-import Custom from 'shared/messages/classes/CustomSerializationFormat'
-
-// ...
-
-// Change the default serialization format
-export const Type: TypeDecorator<TypeIds> = megadata(module, Custom)
-```
-
-By default, all data will be serialized using the JSON serialization format. You can
-change this default at initialization to the value you prefer.
-
-When using the default format, simply use `@Type(TypeIds.Leave)` (without the format)
-when defining your type class.
 
 ## Acknowledgements
 

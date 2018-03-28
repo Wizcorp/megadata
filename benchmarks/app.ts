@@ -10,7 +10,7 @@ const isNode = new Function('try {return process;}catch(e){ return false;}')
 import megadata, { TypeDecorator } from 'megadata'
 import MessageType from 'megadata/classes/MessageType'
 
-export const enum TypeIds {
+export enum TypeIds {
   Binary,
   EmptyBinary,
   Json

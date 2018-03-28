@@ -12,8 +12,6 @@ export interface IMessageType<T> {
   id: number
   size: number
   attributes: TypeAttribute[]
-  typeIds: string
-  typesDirectory: string
   pool: any[]
 
   new(): T
@@ -50,6 +48,16 @@ export type MessageTypeData<T extends MessageType> = Omit<T, keyof MessageType> 
  */
 export default class MessageType {
   /**
+   * Reference to the user defined TypeIds enum
+   */
+  public static typeIds: { [id: number]: string }
+
+  /**
+   * ID to type classes map
+   */
+  public static typesRegister = new Map<number, typeof MessageType>()
+
+  /**
    * Unique identifier when messages of this class are packed
    *
    * See `../types:TypeIds`
@@ -72,19 +80,14 @@ export default class MessageType {
   public static readonly attributes: TypeAttribute[]
 
   /**
-   * Type IDs registered at runtime (the content of the TypeIds enum)
-   */
-  public static typeIds: string
-
-  /**
-   * Folder where types can be found
-   */
-  public static typesDirectory: string
-
-  /**
    * Pools
    */
   public static pool: any[]
+
+  /**
+   * Require instance used during auto-loading (if present)
+   */
+  public static require?: IContextualRequire
 
   /**
    * Dataview instance
@@ -97,20 +100,40 @@ export default class MessageType {
   /**
    * Retrieve the class for a type using the type ID
    *
-   * Note: You **must** make sure to first register your types and
-   * to expose your decorator function:
-   *
-   * ```typescript
-   * export enum TypeIds {
-   *   MyType = 0
-   * }
-   * ```
-   *
    * @param id
    */
-  /* istanbul ignore next */
-  public static getTypeClassById<T extends MessageType>(_id: number): IMessageType<T> | undefined  {
-    throw new Error('getTypeClassById has not been generated')
+  public static getTypeClassById<T extends MessageType>(id: number): IMessageType<T> | undefined  {
+    const { typesRegister } = MessageType
+    if (!typesRegister.has(id)) {
+      if (!this.require) {
+        return
+      }
+
+      const moduleFile = MessageType.typeIds[id]
+
+      if (!moduleFile) {
+        return
+      }
+
+      let mod: any
+
+      try {
+        mod = this.require('./' + moduleFile)
+      } catch (error) {
+        error.message = `Failed to auto-load type class ${moduleFile}: ${error.message}`
+        throw error
+      }
+
+      const { default: typeClass } = mod
+
+      if (!typeClass) {
+        throw new Error(`${moduleFile} must export a default type class`)
+      }
+
+      typesRegister.set(typeClass.id, typeClass)
+    }
+
+    return typesRegister.get(id as any) as any
   }
 
   /**
@@ -165,26 +188,15 @@ export default class MessageType {
   public static parse<T extends MessageType>(buffer: ArrayBuffer): T {
     const view = new DataView(buffer)
     const id = view.getUint8(0)
-    let typeClass = this.getTypeClassById(id)
+    const typeClass = this.getTypeClassById(id)
 
     if (!typeClass) {
-      const type = MessageType.typeIds[id]
+      const type = this.typeIds[id]
 
       if (!type) {
         throw new Error(`Parse error: received invalid type id ${id}`)
-      }
-
-      const typeClassPath = `${MessageType.typesDirectory}/${type}`
-
-      try {
-        typeClass = require(typeClassPath).default
-      } catch (error) {
-        error.message = `Failed to lazy-load type class: ${error.message}`
-        throw error
-      }
-
-      if (!typeClass) {
-        throw new Error(`Failed to lazy-load type class: ${typeClassPath} does not expose a default class`)
+      } else {
+        throw new Error(`Parse error: received message of type ${type} but type class is not loaded`)
       }
     }
 

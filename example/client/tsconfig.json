@@ -1,0 +1,15 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+		"alwaysStrict": true,
+		"noImplicitAny": false,
+		"lib": ["es2015", "dom"],
+		"target": "es5",
+    "baseUrl": "../../",
+    "paths": {
+      "megadata": ["./src/index.ts"],
+      "megadata/*": ["./src/*"],
+      "shared/*": ["./example/shared/*"]
+    }
+  }
+}

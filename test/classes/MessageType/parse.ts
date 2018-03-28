@@ -21,22 +21,22 @@ describe('parse', () => {
     throw new Error('Did not throw')
   })
 
-  it('Throws if lazy-loading fails', () => {
+  it('Throws if auto-loading fails', () => {
     const buffer = new ArrayBuffer(5)
     const view = new DataView(buffer)
 
-    view.setUint8(0, TypeIds.MissingTypeClassFile)
+    view.setUint8(0, TypeIds.TypeFileIsADirectory)
 
     try {
       MessageType.parse(buffer)
     } catch (error) {
-      return assert.equal(error.message.substring(0, 32), 'Failed to lazy-load type class: ')
+      return assert.equal(error.message.split(':')[0], 'Failed to auto-load type class TypeFileIsADirectory')
     }
 
     throw new Error('Did not throw')
   })
 
-  it('Throws if a lazily-loaded type module does not expose a default class', () => {
+  it('Throws if a auto-loaded type module do not expose a default class', () => {
     const buffer = new ArrayBuffer(5)
     const view = new DataView(buffer)
 
@@ -46,13 +46,34 @@ describe('parse', () => {
     try {
       MessageType.parse(buffer)
     } catch (error) {
-      return assert.notEqual(error.message.indexOf('does not expose a default class'), -1)
+      return assert.equal(error.message, 'DoesNotExposeDefault must export a default type class')
     }
 
     throw new Error('Did not throw')
   })
 
-  it('Pre-loaded type classes can be used during parsing', () => {
+  it('Auto-loading is disabled if a require context is not available', () => {
+    const FakeMessageType = Object.assign({}, MessageType)
+    FakeMessageType.require = undefined
+
+    const buffer = new ArrayBuffer(5)
+    const view = new DataView(buffer)
+    const time = 123456789
+
+    // Join
+    view.setUint8(0, TypeIds.JoinPreloaded)
+    view.setUint32(1, time)
+
+    try {
+      FakeMessageType.parse<JoinPreloaded>(buffer)
+    } catch (error) {
+      return assert.equal(error.message, 'Parse error: received message of type JoinPreloaded but type class is not loaded')
+    }
+
+    throw new Error('Did not throw')
+  })
+
+  it('Auto-loading type classes can be used during parsing', () => {
     const buffer = new ArrayBuffer(5)
     const view = new DataView(buffer)
     const time = 123456789
