@@ -1,5 +1,14 @@
 # ![Megadata](./images/logo.png)
 
+[![GitHub tag](https://img.shields.io/github/tag/Wizcorp/megadata.svg?style=flat-square)](https://github.com/Wizcorp/megadata/releases/latest)
+[![npm](https://img.shields.io/npm/v/megadata.svg?style=flat-square)](https://www.npmjs.com/package/megadata)
+[![npm](https://img.shields.io/npm/dt/megadata.svg?style=flat-square)](https://www.npmjs.com/package/megadata)
+[![Gitter](https://img.shields.io/gitter/room/Wizcorp/megadata-typescript.svg?style=flat-square)](https://gitter.im/megadata-typescript/Lobby?utm_source=share-link&utm_medium=link&utm_campaign=share-link)
+
+[![Build Status: Linux & macOS](https://img.shields.io/travis/Wizcorp/megadata.svg?style=flat-square&label=ci%20linux%2Fmacos)](https://travis-ci.org/Wizcorp/megadata)
+[![Build Status: Windows](https://img.shields.io/appveyor/ci/Wizcorp/megadata/master.svg?style=flat-square&label=ci%20windows)](https://ci.appveyor.com/project/Wizcorp/megadata/branch/master)
+[![Coveralls branch](https://img.shields.io/coveralls/Wizcorp/megadata/master.svg?style=flat-square)](https://coveralls.io/github/Wizcorp/megadata)
+
 Megadata is a library you can use to serialize/deserialize network game
 data.
 

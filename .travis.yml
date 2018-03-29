@@ -1,0 +1,25 @@
+os:
+  - linux
+  - osx
+
+dist: trusty
+
+language: node_js
+node_js:
+  - 8
+  - 9
+
+#
+# The last test is required to avoid issues with peer dependencies upon
+# `npm install`.
+#
+# See:
+#   https://github.com/npm/npm/issues/4749
+#   https://stackoverflow.com/questions/33816824/getting-npm-err-code-epeerinvalid-on-npm-packages-global-install
+#
+before_install:
+  - npm install -g npm@latest
+
+script:
+  - travis_retry npm run test
+  - travis_retry npm run report:coverage
