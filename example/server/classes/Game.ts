@@ -3,7 +3,7 @@ import MessageType, { MessageTypeData, IMessageType } from 'megadata/classes/Mes
 import Player from './Player'
 
 import Joined from 'shared/messages/types/Joined'
-import Leaved from 'shared/messages/types/Leaved'
+import Left from 'shared/messages/types/Left'
 
 export default class Game {
   public players: Map<number, Player> = new Map()
@@ -15,7 +15,7 @@ export default class Game {
 
   public leave(player: Player) {
     this.players.delete(player.id)
-    this.broadcast(Leaved, player, player)
+    this.broadcast(Left, player, player)
   }
 
   public broadcast<T extends MessageType>(type: IMessageType<T>, data: MessageTypeData<T>, skip?: Player) {

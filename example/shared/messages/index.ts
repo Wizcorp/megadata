@@ -7,7 +7,7 @@ export enum TypeIds {
   Join,
   GameInfo,
   Joined,
-  Leaved,
+  Left,
   ChangeColor,
   ChangedColor,
   Move,
