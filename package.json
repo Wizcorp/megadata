@@ -31,9 +31,10 @@
     "test:lint:example-server": "npm run lint example/server",
     "test:cpd": "  echo 'Check the codebase for copy-pasted code';     jscpd --config .cpd.yaml",
     "test:unit": " echo 'Run unit tests';                              mocha -r ts-node/register -r tsconfig-paths/register -r ./src/register.ts -R mocha-reporter ./test/index.ts",
-    "test:coverage": " echo 'Run unit tests and check coverage level'; nyc --check-coverage --reporter=text --reporter=html npm run test:unit",
-    "test:git": "  echo 'Make sure all commits are signed';            git-signed",
-    "test": "run-s test:*"
+    "test:coverage": " echo 'Run unit tests and check coverage level'; nyc --check-coverage --reporter=lcovonly --reporter=text --reporter=html npm run test:unit",
+    "test": "run-s test:*",
+    "-------------------- REPORTING --------------------------": "",
+    "report:coverage": "npm run test:coverage; cat ./coverage-report/lcov.info | coveralls"
   },
   "nyc": {
     "lines": 100,
@@ -76,8 +77,8 @@
     "@types/uws": "^0.13.2",
     "babel-loader": "^7.1.4",
     "copy-webpack-plugin": "^4.5.1",
+    "coveralls": "^3.0.0",
     "git-message": "^2.0.2",
-    "git-signed": "^0.1.3",
     "html-webpack-plugin": "^3.1.0",
     "jscpd": "^0.6.17",
     "mocha": "^5.0.4",
