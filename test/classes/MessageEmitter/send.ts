@@ -7,7 +7,7 @@ import Join from 'test/types/Join'
 describe('send and message parser factory', () => {
   let emitter: MessageEmitter
 
-  beforeEach(() => emitter = new MessageEmitter())
+  beforeEach(() => { emitter = new MessageEmitter() })
 
   it('an optional send function can be passed at configuration, and will receive buffer of sent events', (done) => {
     const emitter = new MessageEmitter({

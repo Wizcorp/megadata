@@ -2,7 +2,6 @@
  * Interface representing the output of require.context
  */
 declare interface IContextualRequire extends NodeRequire {
-  resolve(key: string): string
   keys(): string[]
 }
 

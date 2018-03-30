@@ -18,7 +18,7 @@ export class AutoloadEmitter extends MessageEmitter {
 describe('event handler auto-loading', () => {
   let emitter: AutoloadEmitter
 
-  beforeEach(() => emitter = new AutoloadEmitter())
+  beforeEach(() => { emitter = new AutoloadEmitter() })
 
   this.timeout = 2000
 
