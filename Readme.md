@@ -1,12 +1,11 @@
 # ![Megadata](./images/logo.png)
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/Wizcorp/megadata.svg)](https://greenkeeper.io/)
-
 [![GitHub tag](https://img.shields.io/github/tag/Wizcorp/megadata.svg?style=flat-square)](https://github.com/Wizcorp/megadata/releases/latest)
 [![npm](https://img.shields.io/npm/v/megadata.svg?style=flat-square)](https://www.npmjs.com/package/megadata)
 [![npm](https://img.shields.io/npm/dt/megadata.svg?style=flat-square)](https://www.npmjs.com/package/megadata)
 [![Gitter](https://img.shields.io/gitter/room/Wizcorp/megadata-typescript.svg?style=flat-square)](https://gitter.im/megadata-typescript/Lobby?utm_source=share-link&utm_medium=link&utm_campaign=share-link)
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/Wizcorp/megadata.svg?style=flat-square)](https://greenkeeper.io/)
 [![Build Status: Linux & macOS](https://img.shields.io/travis/Wizcorp/megadata.svg?style=flat-square&label=ci%20linux%2Fmacos)](https://travis-ci.org/Wizcorp/megadata)
 [![Build Status: Windows](https://img.shields.io/appveyor/ci/mage/megadata/master.svg?style=flat-square&label=ci%20windows)](https://ci.appveyor.com/project/mage/megadata/branch/master)
 [![Coveralls branch](https://img.shields.io/coveralls/Wizcorp/megadata/master.svg?style=flat-square)](https://coveralls.io/github/Wizcorp/megadata)
