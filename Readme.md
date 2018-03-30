@@ -1,5 +1,7 @@
 # ![Megadata](./images/logo.png)
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/Wizcorp/megadata.svg)](https://greenkeeper.io/)
+
 [![GitHub tag](https://img.shields.io/github/tag/Wizcorp/megadata.svg?style=flat-square)](https://github.com/Wizcorp/megadata/releases/latest)
 [![npm](https://img.shields.io/npm/v/megadata.svg?style=flat-square)](https://www.npmjs.com/package/megadata)
 [![npm](https://img.shields.io/npm/dt/megadata.svg?style=flat-square)](https://www.npmjs.com/package/megadata)
