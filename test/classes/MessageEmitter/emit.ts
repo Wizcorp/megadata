@@ -7,7 +7,7 @@ import Join from 'test/types/Join'
 describe('emit, emitAsync, on and once', () => {
   let emitter: MessageEmitter
 
-  beforeEach(() => emitter = new MessageEmitter())
+  beforeEach(() => { emitter = new MessageEmitter() })
 
   this.timeout = 2000
 
