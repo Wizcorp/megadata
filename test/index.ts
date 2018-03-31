@@ -9,10 +9,13 @@ export const enum TypeIds {
   Binary,
   EmptyBinary,
   Json,
+  JsonExtended,
   Join,
   JoinPreloaded,
   Leave,
-  Double
+  Double,
+  Move,
+  Moved
 }
 
 export const Type: TypeDecorator<TypeIds> = megadata(module, types)
