@@ -51,15 +51,15 @@ describe('pack/unpack', () => {
 
     // 58 + "holiday": false => 74
     assert.equal(subBuffer.byteLength, 74)
-  
+
     const retSuper = MessageType.parse<Json>(superBuffer)
     const retSub = MessageType.parse<JsonExtended>(subBuffer)
-  
+
     // time and ohai
     assert.equal(retSuper.constructor.name, 'Json')
     assert.equal(Object.keys(retSuper).length, 2)
-  
-    // time, ohai and holiday 
+
+    // time, ohai and holiday
     assert.equal(retSub.constructor.name, 'JsonExtended')
     assert.equal(Object.keys(retSub).length, 3)
   })
