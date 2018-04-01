@@ -21,7 +21,7 @@
     "example:server": "cd example/server; ts-node .",
     "example:client": "cd example/client; webpack-dev-server",
     "--------------------- TESTS ----------------------": "",
-    "lint": " echo 'Check TypeScript code for style issues';      tslint --type-check -e \"node_modules/**/*.ts\" --format codeFrame --project",
+    "lint": " echo 'Check TypeScript code for style issues' &&      tslint --type-check -e \"node_modules/**/*.ts\" --format codeFrame --project",
     "test:lint": "run-s test:lint:*",
     "test:lint:src": "npm run lint src",
     "test:lint:test": "npm run lint test",
@@ -29,12 +29,12 @@
     "test:lint:example-sshared": "npm run lint example/shared",
     "test:lint:example-client": "npm run lint example/client",
     "test:lint:example-server": "npm run lint example/server",
-    "test:cpd": "  echo 'Check the codebase for copy-pasted code';     jscpd --config .cpd.yaml",
-    "test:unit": " echo 'Run unit tests';                              mocha -r ts-node/register -r tsconfig-paths/register -r ./src/register.ts -R mocha-reporter ./test/index.ts",
-    "test:coverage": " echo 'Run unit tests and check coverage level'; nyc --check-coverage --reporter=lcovonly --reporter=text --reporter=html npm run test:unit",
+    "test:cpd": "  echo 'Check the codebase for copy-pasted code' &&     jscpd --config .cpd.yaml",
+    "test:unit": " echo 'Run unit tests' &&                              mocha -r ts-node/register -r tsconfig-paths/register -r ./src/register.ts -R mocha-reporter ./test/index.ts",
+    "test:coverage": " echo 'Run unit tests and check coverage level' && nyc --check-coverage --reporter=lcovonly --reporter=text --reporter=html npm run test:unit",
     "test": "run-s test:*",
     "-------------------- REPORTING --------------------------": "",
-    "report:coverage": "npm run test:coverage; cat ./coverage-report/lcov.info | coveralls"
+    "report:coverage": "npm run test:coverage && cat ./coverage-report/lcov.info | coveralls"
   },
   "nyc": {
     "lines": 100,
