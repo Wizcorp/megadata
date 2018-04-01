@@ -31,14 +31,14 @@ const sizes: ISizes = {
 function addAttribute<T extends MessageType>(target: T, attribute: string, type: string) {
   const size = sizes[type]
   const { constructor } = target as any
+  const parent = Object.getPrototypeOf(constructor)
 
-  constructor.size += size
-
-  if (!constructor.attributes) {
-    constructor.attributes = []
+  if (parent.attributes === constructor.attributes) {
+    constructor.attributes = [...parent.attributes]
   }
 
-  constructor.attributes.push([attribute, type])
+  constructor.size += size
+  constructor.attributes.unshift([attribute, type])
 }
 
 /**
@@ -195,8 +195,8 @@ export default class BinarySerializationFormat extends SerializationFormat {
   public static create<I extends number, T extends MessageType>(id: I, size: number, attributes: any) {
     return {
       create:	new Function('size', `return new DataView(new ArrayBuffer(${size}))`),
-      pack:	new Function('instance', 'view', createPack(id, attributes || [])),
-      unpack:	new Function('instance', 'view', createUnpack(attributes || []))
+      pack:	new Function('instance', 'view', createPack(id, attributes)),
+      unpack:	new Function('instance', 'view', createUnpack(attributes))
     } as ISerializerFunctions<T>
   }
 }

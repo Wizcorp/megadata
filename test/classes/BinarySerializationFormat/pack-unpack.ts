@@ -20,6 +20,9 @@ describe('pack/unpack', () => {
   })
 
   it('works properly with inheritance', () => {
+    // Attributes should not have the same content
+    assert.notDeepEqual(Move.attributes, Moved.attributes)
+
     const superclass = Move.create()
     const subclass = Moved.create()
     const superBuffer = superclass.pack()

@@ -1,9 +1,9 @@
 import { Type, TypeIds } from '../'
 import BinaryFormat, { Int32 } from 'megadata/classes/BinarySerializationFormat'
-import MessageType from 'megadata/classes/MessageType'
+import Move from './Move'
 
 @Type(TypeIds.Moved, BinaryFormat)
-export default class Moved extends MessageType {
+export default class Moved extends Move {
 
     @Int32
     public playerId: number
