@@ -77,7 +77,7 @@ export default class MessageType {
    * can be boiled down to Uint8 when sent over the wire
    * so to reduce the overall data size.
    */
-  public static readonly attributes: TypeAttribute[]
+  public static readonly attributes: TypeAttribute[] = []
 
   /**
    * Pools

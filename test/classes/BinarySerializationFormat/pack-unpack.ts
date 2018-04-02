@@ -2,6 +2,8 @@ import * as assert from 'assert'
 
 import Binary from 'test/types/Binary'
 import EmptyBinary from 'test/types/EmptyBinary'
+import Move from 'test/types/Move'
+import Moved from 'test/types/Moved'
 import MessageType from 'megadata/classes/MessageType'
 
 describe('pack/unpack', () => {
@@ -15,6 +17,33 @@ describe('pack/unpack', () => {
 
     assert.equal(ret.constructor.name, 'EmptyBinary')
     assert.equal(Object.keys(ret).length, 0)
+  })
+
+  it('works properly with inheritance', () => {
+    // Attributes should not have the same content
+    assert.notDeepEqual(Move.attributes, Moved.attributes)
+
+    const superclass = Move.create()
+    const subclass = Moved.create()
+    const superBuffer = superclass.pack()
+    const subBuffer = subclass.pack()
+
+    // int32 + int32 + typeId
+    assert.equal(superBuffer.byteLength, 9)
+
+    // inherited int32 + int32 + typeId plus it's own int32 member
+    assert.equal(subBuffer.byteLength, 13)
+
+    const retSuper = MessageType.parse<Move>(superBuffer)
+    const retSub = MessageType.parse<Moved>(subBuffer)
+
+    // x and y
+    assert.equal(retSuper.constructor.name, 'Move')
+    assert.equal(Object.keys(retSuper).length, 2)
+
+    // x, y and playerId
+    assert.equal(retSub.constructor.name, 'Moved')
+    assert.equal(Object.keys(retSub).length, 3)
   })
 
   it('works properly with all data fields', () => {
