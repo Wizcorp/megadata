@@ -53,6 +53,7 @@ export default function generateTypeDecorator<I extends number>(
       }
 
       target.id = id
+      target.pool = new Array()
       typesRegister.set(id, target as any)
 
       const { prototype, attributes, size } = target as any
