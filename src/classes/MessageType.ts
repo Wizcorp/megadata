@@ -140,10 +140,6 @@ export default class MessageType {
    * Claim an instance of this class (or create one if none are available).
    */
   public static claim<T extends MessageType>() {
-    if (!this.pool) {
-      this.pool = new Array()
-    }
-
     if (this.pool.length > 0) {
       return this.pool.shift() as T
     }
