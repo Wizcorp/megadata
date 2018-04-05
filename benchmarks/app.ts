@@ -4,6 +4,67 @@ declare const window: any
 declare const process: any
 declare const global: any
 
+function log(content: string) {
+  const prefix = 'font-size: 4px; line-height: 2px; font-weight: bold'
+  const output = ['%c']
+  const styles = [prefix]
+
+  content.split('\n').forEach((line) => {
+    if (line === '') {
+      return
+    }
+
+    output.push(
+      '%c    ' + line
+        .padEnd(182, ' ')
+        .replace(/,/g, '@')
+    )
+
+    styles.push(
+      `${prefix}; color: magenta; background: #111;`,
+      `${prefix}; color: cyan; background: #111;`,
+      `${prefix}; color: magenta; background: #111;`)
+  })
+
+  // tslint:disable:no-console
+  console.debug(output.join('\n'), ...styles)
+}
+
+// tslint:disable:max-line-length
+log(`
+   ,,,,,,      ,,,,,             ,,,,,,,         ,,,,,,      %c                    # #                    %c   ,,,,,,,,,,             ,,,,,,       ,,,,,,,,,,,,,       ,,,,,,,
+  ,      ,   ,,     ,,          ,,              ,      ,,    %c                   ## ##                   %c   ,        ,,           ,,     ,,           ,            ,,     ,,
+ ,        , ,,       ,         ,               ,        ,,   %c                   ## ##                   %c   ,          ,         ,        ,,          ,           ,         ,
+,,        , ,         ,       ,               ,          ,   %c                  ### ###                  %c   ,           ,       ,,         ,          ,          ,,         ,
+,          ,,         ,       ,               ,           ,  %c                 #### ####                 %c   ,           ,      ,            ,         ,          ,           ,
+,          ,          ,      ,,              ,            ,  %c                ##### #####                %c   ,            ,     ,            ,         ,          ,           ,
+,          ,           ,     ,               ,            ,  %c                ####   ####                %c   ,            ,     ,            ,         ,          ,           ,
+,          ,           ,     ,               ,               %c               #####   #####               %c   ,            ,     ,            ,         ,          ,           ,
+,          ,           ,     ,               ,               %c               ####     ####               %c   ,            ,     ,            ,         ,          ,           ,
+,          ,           ,     ,               ,               %c              #####     #####              %c   ,            ,     ,            ,         ,          ,           ,
+,          ,           ,     ,               ,               %c              ####       ####              %c   ,            ,     ,            ,         ,          ,           ,
+,          ,           ,     ,               ,               %c              ####       ####              %c   ,            ,     ,            ,         ,          ,           ,
+,          ,           ,     ,               ,               %c             ####         ####             %c   ,            ,     ,            ,         ,          ,           ,
+,          ,           ,     ,               ,               %c             ###           ###             %c   ,            ,     ,            ,         ,          ,           ,
+,          ,           ,     ,               ,               %c            ####           ####            %c   ,            ,     ,            ,         ,          ,           ,
+,          ,           ,     ,,,,,,,,,,,     ,      ,,,,,,,  %c            ###             ###            %c   ,            ,     ,            ,         ,          ,           ,
+,          ,           ,     ,               ,            ,  %c           ####             ####           %c   ,            ,     ,            ,         ,          ,           ,
+,          ,           ,     ,               ,            ,  %c          ####               ####          %c   ,            ,     ,            ,         ,          ,           ,
+,          ,           ,     ,               ,            ,  %c          ####               ####          %c   ,            ,     ,,,,,,,,,,,,,,         ,          ,,,,,,,,,,,,,
+,          ,           ,     ,               ,            ,  %c         ####                 ####         %c   ,            ,     ,            ,         ,          ,           ,
+,          ,           ,     ,               ,            ,  %c         ####                 ####         %c   ,            ,     ,            ,         ,          ,           ,
+,          ,           ,     ,               ,            ,  %c        #####                 #####        %c   ,            ,     ,            ,         ,          ,           ,
+,          ,           ,     ,               ,            ,  %c        ####                   ####        %c   ,            ,     ,            ,         ,          ,           ,
+,          ,           ,     ,               ,            ,  %c       #####                   #####       %c   ,            ,     ,            ,         ,          ,           ,
+,          ,           ,     ,               ,            ,  %c      #####                     #####      %c   ,            ,     ,            ,         ,          ,           ,
+,          ,           ,     ,,              ,            ,  %c      #####                     #####      %c   ,           ,,     ,            ,         ,          ,           ,
+,          ,           ,      ,               ,           ,  %c     ####                         ####     %c   ,           ,      ,            ,         ,          ,           ,
+,          ,           ,      ,               ,          ,,  %c    ###   #######################   ###    %c   ,           ,      ,            ,         ,          ,           ,
+,          ,           ,       ,               ,        ,,   %c    #   ############################  #    %c   ,          ,       ,            ,         ,          ,           ,
+,          ,           ,        ,,              ,      ,,    %c      ###########          ##########      %c   ,        ,,        ,            ,         ,          ,           ,
+,          ,           ,         ,,,,,,,         ,,,,,,      %c     ##########              #########     %c   ,,,,,,,,,          ,            ,         ,          ,           ,
+`)
+
 // Ref: https://developer.mozilla.org/en-US/docs/Web/API/Performance/now
 const isNode = new Function('try {return process;}catch(e){ return false;}')
 

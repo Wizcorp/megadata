@@ -33,7 +33,7 @@ function start() {
 
   setTimeout(() => {
     win.loadURL(`http://localhost:${port}/?type=${type}`)
-    win.toggleDevTools()
+    win.webContents.openDevTools({ mode: 'bottom' })
     setTimeout(() => win.maximize(), 100)
   }, 2000)
 }
