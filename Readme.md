@@ -21,6 +21,10 @@ This library will help you deal with:
   4. Sharing message libraries between client (JavaScript) and server (Node.js)
   5. TypeScript type checks
 
+## Requirements
+
+  - Node.js 8.0 or higher
+
 ## Installation
 
 ```shell

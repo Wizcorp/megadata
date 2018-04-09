@@ -1,13 +1,14 @@
 const type = process.argv[2] || `Binary`
 const port = 19223
 
+const { app, BrowserWindow } = require('electron')
+
 const http = require('http')
-const electron = require('electron')
 const cp = require('child_process')
 
 if (!type) {
-    console.error('Usage: node ' +  process.argv[1] + ' [type]')
-    process.exit(1)
+  // Throw so that error popups up on Windows
+  throw new Error('Usage: node ' +  process.argv[1] + ' [type]')
 }
 
 function start() {
@@ -20,7 +21,8 @@ function start() {
   ])
 
   proc.stderr.pipe(process.stderr)
-  proc.on('exit', () => process.exit())
+  proc.stdout.pipe(process.stdout)
+  app.on('before-quit', () => proc.kill())
 
   setTimeout(() => {
     http.get('http://localhost:' + port + '/json/list', function (res) {
@@ -35,7 +37,7 @@ function start() {
         console.log('  ', data.devtoolsFrontendUrl)
         console.log('')
 
-        const win = new electron.BrowserWindow({
+        const win = new BrowserWindow({
             title: type,
             frame: true
         })
@@ -49,7 +51,8 @@ function start() {
         setTimeout(() => win.maximize(), 100)
       })
     })
-  }, 100)
+  }, 2000)
 }
 
-electron.app.on('ready', start)
+app.on('window-all-closed', () => app.quit())
+app.on('ready', start)

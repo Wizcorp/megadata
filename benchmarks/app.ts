@@ -5,7 +5,7 @@ declare const process: any
 declare const global: any
 
 function log(content: string) {
-  const prefix = 'font-size: 4px; line-height: 2px; font-weight: bold'
+  const prefix = 'font-weight: bold'
   const output = ['%c']
   const styles = [prefix]
 
