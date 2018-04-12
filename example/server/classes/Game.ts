@@ -4,6 +4,7 @@ import Player from './Player'
 
 import Joined from 'shared/messages/types/Joined'
 import Left from 'shared/messages/types/Left'
+import { OverwriteBufferStrategy } from 'megadata/classes/MessageBuffer';
 
 export default class Game {
   public players: Map<number, Player> = new Map()
@@ -24,7 +25,10 @@ export default class Game {
         return
       }
 
-      player.send(type, data)
+      player.send(type, data, { 
+        bufferId: 1, 
+        strategy: OverwriteBufferStrategy,
+      })
     })
   }
 }

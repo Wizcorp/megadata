@@ -2,7 +2,7 @@ import '../register'
 
 import { EventEmitter2 as EventEmitter } from 'eventemitter2'
 import MessageType, { MessageTypeData, IMessageType } from './MessageType'
-import MessageBuffer, { IMessageBufferScheduler, IBufferStrategy, BufferStrategy } from './MessageBuffer'
+import { MessageBufferPool, IBufferConfig, BufferStrategy } from './MessageBuffer'
 
 /**
  * Setup events auto-loading for all instances of this class
@@ -61,13 +61,6 @@ function getTypeEventName<T extends MessageType>(type: IMessageType<T> | Event):
 export default class MessageEmitter {
 
   /**
-   * Buffers all MessageTypes whose BufferedBehavior is not
-   * set to NO_BUFFER (default) until commit is called by
-   * an IMessageBufferProcessor.
-   */
-  private _messageBuffer: MessageBuffer
-
-  /**
    * Known events
    *
    * List of events we have either listened to or
@@ -103,7 +96,6 @@ export default class MessageEmitter {
     if (config) {
       const { send } = config
       this._send = send
-      this._messageBuffer = new MessageBuffer(this._send!)
     }
   }
 
@@ -169,39 +161,26 @@ export default class MessageEmitter {
     }
   }
 
-  private _registeredBufferProcessor = false
-  public registerMessageBufferProcessor(messageBufferProcessor: IMessageBufferScheduler) {
-    messageBufferProcessor.schedule = () => this._messageBuffer.schedule()
-    this._registeredBufferProcessor = true
-  }
-
   /**
    * Send message using the configured send function
    *
    * @param type
    * @param data
    */
-  public send<T extends MessageType, S extends IBufferStrategy>(type: IMessageType<T>, data: MessageTypeData<T>, bufferStrategy?: BufferStrategy<S>)  {
+  public send<T extends MessageType, S extends BufferStrategy>(type: IMessageType<T>, data: MessageTypeData<T>, bufferConfig?: IBufferConfig<S>)  {
     if (!this._send) {
       throw new Error('Instance not configured with a send function')
     }
 
-    const message = type.create(data)
-    const buffer = message.pack()
-
-    if (bufferStrategy) {
-
-      if (!this._registeredBufferProcessor && bufferStrategy.strategy.hasOwnProperty('_scheduled')) {
-        throw new Error('The MessageBuffer only works with an registered IMessageBufferProcessor')
-      }
-
-      this._messageBuffer.store(type, buffer, bufferStrategy)
+    if (bufferConfig) {
+      MessageBufferPool.pool({ type, data, send: this._send, config: bufferConfig })
 
     } else {
+      const message = type.create(data)
+      const buffer = message.pack()
       this._send(buffer)
+      message.release()
     }
-
-    message.release()
   }
 
   /**
