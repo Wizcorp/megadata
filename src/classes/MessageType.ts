@@ -1,3 +1,5 @@
+import '../register'
+
 /**
  * Type attributes contain the information
  */
