@@ -50,7 +50,7 @@ You will also need to make sure that the following configuration is set in your 
 ```typescript
 import megadata, { TypeDecorator } from 'megadata'
 
-export const enum TypeIds {
+export enum TypeIds {
   Join,
   Leave
 }
