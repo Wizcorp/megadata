@@ -146,12 +146,7 @@ export default class MessageType {
       return this.pool.shift() as T
     }
 
-    const instance = new this() as T
-    Object.defineProperty(instance, '_data', {
-      value: instance._create(instance)
-    })
-
-    return instance
+    return new this() as T
   }
 
   /**
@@ -202,6 +197,16 @@ export default class MessageType {
     instance.unpack(view)
 
     return instance
+  }
+
+  constructor() {
+    // Create the DataView only when called from a subclass
+    // since else the hooks are missing and it will throw.
+    if (this.constructor.name !== 'MessageType') {
+      Object.defineProperty(this, '_data', {
+        value: this._create(this)
+      })
+    }
   }
 
   /**

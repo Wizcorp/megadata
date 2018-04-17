@@ -24,4 +24,11 @@ describe('pool', () => {
     assert(moved instanceof Moved)
     assert.notDeepEqual(move.constructor.name, moved.constructor.name)
   })
+
+  it ('Constructing a message without claim does not crash', () => {
+    assert.doesNotThrow(() => {
+      const move = new Move()
+      move.pack()
+    })
+  })
 })
