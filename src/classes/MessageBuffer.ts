@@ -169,8 +169,8 @@ export abstract class MessageBufferPool {
         const poolName = scope.charAt(0).toUpperCase() + scope.slice(1)
         const pool = MessageBufferPool._pool[poolName]
         
-        if (!this._globalScheduler && !config.scheduler) {
-            throw new Error('You need to provide a scheduler or call MessageBufferPool.enableGlobalScheduler().')
+        if (!this._globalScheduler) {
+            this.setGlobalScheduler(new MessageBufferPoolScheduler());
         }
 
         let messageBuffer = pool.get(bufferId)
@@ -204,13 +204,10 @@ export abstract class MessageBufferPool {
      * When not providing a scheduler per MessageBuffer it is necessary
      * to enable a global scheduler. When called without a scheduler
      * the default MessageBufferPoolScheduler is used.
+     * TODO: use getter/setter
      * @param scheduler
      */
-    static enableGlobalScheduler(scheduler?: IMessageBufferScheduler) {
-        if (!scheduler) {
-            scheduler = new MessageBufferPoolScheduler()
-        }
-
+    static setGlobalScheduler(scheduler: IMessageBufferScheduler) {
         this._globalScheduler = scheduler
         this._globalScheduler.schedule = () => this.flushMessages()
     }
