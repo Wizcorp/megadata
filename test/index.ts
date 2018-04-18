@@ -3,7 +3,7 @@ import * as assert from 'assert'
 
 const types = require.context('./types')
 
-export const enum TypeIds {
+export enum TypeIds {
   TypeFileIsADirectory,
   DoesNotExposeDefault,
   Binary,
