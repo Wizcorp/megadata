@@ -1,6 +1,6 @@
 {
   "name": "megadata",
-  "version": "1.1.3",
+  "version": "1.1.4",
   "description": "Smart messaging for games",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
@@ -24,7 +24,7 @@
     "example:server": "cd example/server; ts-node .",
     "example:client": "cd example/client; webpack-dev-server",
     "--------------------- TESTS ----------------------": "",
-    "lint": " echo 'Check TypeScript code for style issues' &&      ts-node -r ./src/register.ts -r tsconfig-paths/register node_modules/.bin/tslint --type-check -e \"node_modules/**/*.ts\" --format codeFrame --project",
+    "lint": " echo 'Check TypeScript code for style issues' &&      ts-node -r ./src/register.ts -r tsconfig-paths/register node_modules/tslint/bin/tslint --type-check -e \"node_modules/**/*.ts\" --format codeFrame --project",
     "test:lint": "run-s test:lint:*",
     "test:lint:src": "npm run lint src",
     "test:lint:test": "npm run lint test",
