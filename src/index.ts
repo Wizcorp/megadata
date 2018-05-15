@@ -1,5 +1,3 @@
-import './register'
-
 import MessageType, { IMessageType } from './classes/MessageType'
 import { ISerializationFormat } from './classes/SerializationFormat'
 
@@ -21,7 +19,7 @@ let initialized = false
 // tslint:disable:variable-name
 export default function generateTypeDecorator<I extends number>(
   parentModule: NodeModule,
-  require?: IContextualRequire
+  require?: __WebpackModuleApi.RequireContext
 ) {
   if (!parentModule.exports.TypeIds) {
     throw new Error(`${parentModule.id} does not export a TypeIds enum!`)

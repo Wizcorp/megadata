@@ -3,7 +3,7 @@ import * as assert from 'assert'
 
 const types = require.context('./types')
 
-export const enum TypeIds {
+export enum TypeIds {
   TypeFileIsADirectory,
   DoesNotExposeDefault,
   Binary,
@@ -28,7 +28,7 @@ describe('megadata', () => {
       try {
         megadata<TypeIds>({ id, exports: {} } as NodeModule, types)
       } catch (error) {
-        return assert.equal(error.message, `${id} does not export a TypeIds enum!`)
+        return assert.strictEqual(error.message, `${id} does not export a TypeIds enum!`)
       }
 
       throw new Error('Did not throw')
@@ -38,7 +38,7 @@ describe('megadata', () => {
       try {
         megadata<TypeIds>(module, types)
       } catch (error) {
-        return assert.equal(error.message, 'megadata has already been initialized')
+        return assert.strictEqual(error.message, 'megadata has already been initialized')
       }
 
       throw new Error('Did not throw')
@@ -50,7 +50,10 @@ describe('megadata', () => {
       try {
         require('./types/DoubleTwo')
       } catch (error) {
-        return assert.equal(error.message, `Tried to register type ID ${TypeIds.Double} to type DoubleTwo but already assigned to type DoubleOne`)
+        return assert.strictEqual(
+          error.message,
+          `Tried to register type ID ${TypeIds.Double} to type DoubleTwo but already assigned to type DoubleOne`
+        )
       }
 
       throw new Error('Did not throw')

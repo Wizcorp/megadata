@@ -7,7 +7,7 @@ describe('SerializationFormat', () => {
     try {
       SerializationFormat.create(0, 0, [])
     } catch (error) {
-      return assert.equal(error.message, 'SerializationFormat.create is not implemented')
+      return assert.strictEqual(error.message, 'SerializationFormat.create is not implemented')
     }
 
     throw new Error('Did not throw')

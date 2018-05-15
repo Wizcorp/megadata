@@ -12,7 +12,7 @@ describe('send and message parser factory', () => {
   it('an optional send function can be passed at configuration, and will receive buffer of sent events', (done) => {
     const emitter = new MessageEmitter({
       send: (buffer) => {
-        assert.equal(buffer.byteLength, 5)
+        assert.strictEqual(buffer.byteLength, 5)
         done()
       }
     })
@@ -26,7 +26,7 @@ describe('send and message parser factory', () => {
     try {
       emitter.send(Json, {} as Json)
     } catch (error) {
-      return assert.equal(error.message, 'Instance not configured with a send function')
+      return assert.strictEqual(error.message, 'Instance not configured with a send function')
     }
   })
 
@@ -35,7 +35,7 @@ describe('send and message parser factory', () => {
     const parse = emitter.createMessageParser()
 
     emitter.once(Join, async (message) => {
-      assert.equal(message.time, 1)
+      assert.strictEqual(message.time, 1)
       await new Promise((resolve) => setTimeout(resolve, 10))
       joinDone = true
     })

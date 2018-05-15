@@ -11,17 +11,17 @@ describe('pack/unpack', () => {
     const instance = EmptyBinary.create()
     const buffer = instance.pack()
 
-    assert.equal(buffer.byteLength, 1)
+    assert.strictEqual(buffer.byteLength, 1)
 
     const ret = MessageType.parse<EmptyBinary>(buffer)
 
-    assert.equal(ret.constructor.name, 'EmptyBinary')
-    assert.equal(Object.keys(ret).length, 0)
+    assert.strictEqual(ret.constructor.name, 'EmptyBinary')
+    assert.strictEqual(Object.keys(ret).length, 0)
   })
 
   it('works properly with inheritance', () => {
     // Attributes should not have the same content
-    assert.notDeepEqual(Move.attributes, Moved.attributes)
+    assert.notDeepStrictEqual(Move.attributes, Moved.attributes)
 
     const superclass = Move.create()
     const subclass = Moved.create()
@@ -29,21 +29,21 @@ describe('pack/unpack', () => {
     const subBuffer = subclass.pack()
 
     // int32 + int32 + typeId
-    assert.equal(superBuffer.byteLength, 9)
+    assert.strictEqual(superBuffer.byteLength, 9)
 
     // inherited int32 + int32 + typeId plus it's own int32 member
-    assert.equal(subBuffer.byteLength, 13)
+    assert.strictEqual(subBuffer.byteLength, 13)
 
     const retSuper = MessageType.parse<Move>(superBuffer)
     const retSub = MessageType.parse<Moved>(subBuffer)
 
     // x and y
-    assert.equal(retSuper.constructor.name, 'Move')
-    assert.equal(Object.keys(retSuper).length, 2)
+    assert.strictEqual(retSuper.constructor.name, 'Move')
+    assert.strictEqual(Object.keys(retSuper).length, 2)
 
     // x, y and playerId
-    assert.equal(retSub.constructor.name, 'Moved')
-    assert.equal(Object.keys(retSub).length, 3)
+    assert.strictEqual(retSub.constructor.name, 'Moved')
+    assert.strictEqual(Object.keys(retSub).length, 3)
   })
 
   it('works properly with all data fields', () => {
@@ -64,17 +64,17 @@ describe('pack/unpack', () => {
 
     const buffer = instance.pack()
 
-    assert.equal(buffer.byteLength, 27)
+    assert.strictEqual(buffer.byteLength, 27)
 
     const ret = MessageType.parse<Binary>(buffer)
 
-    assert.equal(ret.uint8, uint8)
-    assert.equal(ret.uint16, uint16)
-    assert.equal(ret.uint32, uint32)
-    assert.equal(ret.int8, int8)
-    assert.equal(ret.int16, int16)
-    assert.equal(ret.int32, int32)
-    assert.equal(ret.float32, float32)
-    assert.equal(ret.float64, float64)
+    assert.strictEqual(ret.uint8, uint8)
+    assert.strictEqual(ret.uint16, uint16)
+    assert.strictEqual(ret.uint32, uint32)
+    assert.strictEqual(ret.int8, int8)
+    assert.strictEqual(ret.int16, int16)
+    assert.strictEqual(ret.int32, int32)
+    assert.strictEqual(ret.float32, float32)
+    assert.strictEqual(ret.float64, float64)
   })
 })

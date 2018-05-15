@@ -15,7 +15,7 @@ describe('parse', () => {
     try {
       MessageType.parse(buffer)
     } catch (error) {
-      return assert.equal(error.message, 'Parse error: received invalid type id 255')
+      return assert.strictEqual(error.message, 'Parse error: received invalid type id 255')
     }
 
     throw new Error('Did not throw')
@@ -30,7 +30,7 @@ describe('parse', () => {
     try {
       MessageType.parse(buffer)
     } catch (error) {
-      return assert.equal(error.message.split(':')[0], 'Failed to auto-load type class TypeFileIsADirectory')
+      return assert.strictEqual(error.message.split(':')[0], 'Failed to auto-load type class TypeFileIsADirectory')
     }
 
     throw new Error('Did not throw')
@@ -46,7 +46,7 @@ describe('parse', () => {
     try {
       MessageType.parse(buffer)
     } catch (error) {
-      return assert.equal(error.message, 'DoesNotExposeDefault must export a default type class')
+      return assert.strictEqual(error.message, 'DoesNotExposeDefault must export a default type class')
     }
 
     throw new Error('Did not throw')
@@ -67,7 +67,7 @@ describe('parse', () => {
     try {
       FakeMessageType.parse<JoinPreloaded>(buffer)
     } catch (error) {
-      return assert.equal(error.message, 'Parse error: received message of type JoinPreloaded but type class is not loaded')
+      return assert.strictEqual(error.message, 'Parse error: received message of type JoinPreloaded but type class is not loaded')
     }
 
     throw new Error('Did not throw')
@@ -83,8 +83,8 @@ describe('parse', () => {
     view.setUint32(1, time)
 
     const message = MessageType.parse<JoinPreloaded>(buffer)
-    assert.equal(message.constructor.name, 'JoinPreloaded')
-    assert.equal(message.time, time)
+    assert.strictEqual(message.constructor.name, 'JoinPreloaded')
+    assert.strictEqual(message.time, time)
   })
 
   it('Type classes yet to be loaded are auto-loaded', () => {
@@ -97,8 +97,8 @@ describe('parse', () => {
     view.setUint32(1, time)
 
     const message = MessageType.parse(buffer)
-    assert.equal(message.constructor.name, 'Join')
-    assert.equal((message as any).time, time)
+    assert.strictEqual(message.constructor.name, 'Join')
+    assert.strictEqual((message as any).time, time)
   })
 
   it('Parsing using JsonSerializationFormat works', () => {
@@ -114,7 +114,7 @@ describe('parse', () => {
     }
 
     const message = MessageType.parse<Leave>(buffer)
-    assert.equal(message.constructor.name, 'Leave')
-    assert.equal((message as any).time, time)
+    assert.strictEqual(message.constructor.name, 'Leave')
+    assert.strictEqual((message as any).time, time)
   })
 })

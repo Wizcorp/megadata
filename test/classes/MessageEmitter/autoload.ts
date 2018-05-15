@@ -24,7 +24,7 @@ describe('event handler auto-loading', () => {
 
   it('auto-loading ignores events that do not have a an event handler file', (done) => {
     emitter.on(Event.Ignored, (message: Json) => {
-      assert.equal(message.time, 1)
+      assert.strictEqual(message.time, 1)
       done()
     })
 
@@ -38,13 +38,13 @@ describe('event handler auto-loading', () => {
     let errorEmitted = false
 
     emitter.on(Event.Error, (error) => {
-      assert.equal(error.message, 'Failed to auto-load event handler for Binary: garbage is not defined')
+      assert.strictEqual(error.message, 'Failed to auto-load event handler for Binary: garbage is not defined')
       errorEmitted = true
     })
 
     emitter.on(Event.Ignored, (message: Binary) => {
       assert(errorEmitted)
-      assert.equal(message.int32, int32)
+      assert.strictEqual(message.int32, int32)
       done()
     })
 
@@ -57,7 +57,7 @@ describe('event handler auto-loading', () => {
     let errorEmitted = false
 
     emitter.on(Event.Error, (error) => {
-      assert.equal(error.message, 'Event handler for EmptyBinary must export a default function')
+      assert.strictEqual(error.message, 'Event handler for EmptyBinary must export a default function')
       errorEmitted = true
     })
 
@@ -73,7 +73,7 @@ describe('event handler auto-loading', () => {
     // Auto-load loads the event file
     emitter.throws = true
     emitter.on(Event.Error, (error) => {
-      assert.equal(error.message, 'bam')
+      assert.strictEqual(error.message, 'bam')
       done()
     })
 
@@ -85,8 +85,8 @@ describe('event handler auto-loading', () => {
     // Auto-load loads the event file
     emitter.emit(Join.create({ time: 1 }))
 
-    assert.equal(emitter.eventAttached, true)
-    assert.equal(emitter.touched, true)
+    assert.strictEqual(emitter.eventAttached, true)
+    assert.strictEqual(emitter.touched, true)
 
     // Already loaded, auto-load should not run again
     emitter.touched = false
@@ -94,7 +94,7 @@ describe('event handler auto-loading', () => {
 
     emitter.emit(Join.create({ time: 1}))
 
-    assert.equal(emitter.eventAttached, false)
-    assert.equal(emitter.touched, true)
+    assert.strictEqual(emitter.eventAttached, false)
+    assert.strictEqual(emitter.touched, true)
   })
 })

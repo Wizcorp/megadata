@@ -15,12 +15,12 @@ describe('emit, emitAsync, on and once', () => {
     let jsonDone = false
     emitter.on(Json, (message) => {
       jsonDone = true
-      assert.equal(message.ohai.help, 'hello')
+      assert.strictEqual(message.ohai.help, 'hello')
     })
 
     emitter.once(Join, (message) => {
       assert(jsonDone)
-      assert.equal(message.time, 1)
+      assert.strictEqual(message.time, 1)
       done()
     })
 
@@ -42,13 +42,13 @@ describe('emit, emitAsync, on and once', () => {
     let joinDone = false
 
     emitter.on(Json, async (message) => {
-      assert.equal(message.ohai.help, 'hello')
+      assert.strictEqual(message.ohai.help, 'hello')
       await new Promise((resolve) => setTimeout(resolve, 10))
       jsonDone = true
     })
 
     emitter.once(Join, async (message) => {
-      assert.equal(message.time, 1)
+      assert.strictEqual(message.time, 1)
       await new Promise((resolve) => setTimeout(resolve, 10))
       joinDone = true
     })

@@ -10,7 +10,7 @@ describe('pool', () => {
     instance.release()
 
     const newInstance = Leave.create({ time: 1 }) as any
-    assert.equal(newInstance.__reused, true)
+    assert.strictEqual(newInstance.__reused, true)
   })
 
   it('Each types has a separate pool regardless of inheritance', () => {
@@ -18,11 +18,11 @@ describe('pool', () => {
     const moved = Moved.create({} as any)
     move.release()
 
-    assert.equal(Move.pool.length, 1)
-    assert.equal(Moved.pool.length, 0)
+    assert.strictEqual(Move.pool.length, 1)
+    assert.strictEqual(Moved.pool.length, 0)
 
     assert(moved instanceof Moved)
-    assert.notDeepEqual(move.constructor.name, moved.constructor.name)
+    assert.notDeepStrictEqual(move.constructor.name, moved.constructor.name)
   })
 
   it ('Constructing a message without claim does not crash', () => {

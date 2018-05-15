@@ -1,5 +1,3 @@
-import '../register'
-
 /**
  * Type attributes contain the information
  */
@@ -89,7 +87,7 @@ export default class MessageType {
   /**
    * Require instance used during auto-loading (if present)
    */
-  public static require?: IContextualRequire
+  public static require?: __WebpackModuleApi.RequireContext
 
   /**
    * Dataview instance

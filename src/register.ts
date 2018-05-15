@@ -1,22 +1,3 @@
-/**
- * Interface representing the output of require.context
- */
-declare interface IContextualRequire extends NodeRequire {
-  keys(): string[]
-}
-
-/**
- * Augmentation of the NodeRequire interface (representing `require`)
- */
-// tslint:disable:interface-name
-interface NodeRequire {
-  context: (path: string, recursive?: boolean, regexp?: RegExp) => IContextualRequire
-}
-
-declare var require: NodeRequire
-
-declare const __webpack_require__: any
-
 // Code ported from https://github.com/wilsonlewis/require-context/blob/master/index.js
 
 /* istanbul ignore next */

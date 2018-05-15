@@ -9,7 +9,7 @@ describe('generated', () => {
       try {
         instance[method]()
       } catch (error) {
-        return assert.equal(error.message, `${method} was not overwritten!`)
+        return assert.strictEqual(error.message, `${method} was not overwritten!`)
       }
 
       throw new Error('Did not throw')

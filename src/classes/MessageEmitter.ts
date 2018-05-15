@@ -1,5 +1,3 @@
-import '../register'
-
 import { EventEmitter2 as EventEmitter } from 'eventemitter2'
 import MessageType, { MessageTypeData, IMessageType } from './MessageType'
 
@@ -11,7 +9,7 @@ import MessageType, { MessageTypeData, IMessageType } from './MessageType'
  * @param module Node.js/Webpack module
  * @param folder Path relative to this module to the folder containing events files
  */
-export function AutoloadEvents(require: IContextualRequire) {
+export function AutoloadEvents(require: __WebpackModuleApi.RequireContext) {
   return function (target: any) {
     target.prototype.require = require
   }
@@ -85,7 +83,7 @@ export default class MessageEmitter {
   /**
    * Require instance to use during auto-loading
    */
-  private readonly require: IContextualRequire
+  private readonly require: __WebpackModuleApi.RequireContext
 
   constructor(config?: IEmitterConfig) {
     this.autoloadedEvents = {}
