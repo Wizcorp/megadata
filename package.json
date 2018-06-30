@@ -1,6 +1,6 @@
 {
-  "name": "megadata",
-  "version": "0.0.0-development",
+  "name": "testing-myoshi",
+  "version": "1.1.4",
   "description": "Smart messaging for games",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
@@ -69,17 +69,17 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Wizcorp/megadata.git"
+    "url": "git+https://github.com/MYoshi/megadata.git"
   },
   "keywords": [
     "game"
   ],
-  "author": "Marc Trudel <mtrudel@wizcorp.jp>",
+  "author": "MYoshi <marceloyfukumoto@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Wizcorp/megadata/issues"
+    "url": "https://github.com/MYoshi/megadata/issues"
   },
-  "homepage": "https://github.com/Wizcorp/megadata#readme",
+  "homepage": "https://github.com/MYoshi/megadata#readme",
   "devDependencies": {
     "@commitlint/cli": "^7.0.0",
     "@commitlint/config-angular": "^7.0.1",
