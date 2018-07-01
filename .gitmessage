@@ -1,23 +1,51 @@
-# <type>(<scope>): <subject>
-# <BLANK LINE>
-# <body>
-# <BLANK LINE>
-# <footer>
+###
+# Commits must follow the Angular Commit Message Convention
+# https://github.com/angular/angular/blob/master/CONTRIBUTING.md#-commit-message-guidelines
+###
+
+###
+# Please put a title above this line. The title must follow
+# the following format:
 #
-# For easy commit you can execute
-# npm run commit
+#   <type>(<scope>): <subject>
 #
-# Commit message Format from Angular Commit Message Convention
-# https://github.com/angular/angular.js/blob/master/DEVELOPERS.md#-git-commit-guidelines
+# The scope should be the name of the npm package affected (as perceived by the
+# person reading the changelog generated from commit messages.
 #
-# Types:
-# Must be one of the following:
+# The subject contains succinct description of the change.
 #
-# feat: A new feature
-# fix: A bug fix
-# docs: Documentation only changes
-# style: Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc)
-# refactor: A code change that neither fixes a bug nor adds a feature
-# perf: A code change that improves performance
-# test: Adding missing or correcting existing tests
-# chore: Changes to the build process or auxiliary tools and libraries such as documentation generation
+# Valid types are:
+#
+#   - build: Changes that affect the build system or external dependencies
+#     (example scopes: gulp, broccoli, npm)
+#   - ci: Changes to our CI configuration files and scripts (example scopes:
+#     Travis, Circle, BrowserStack, SauceLabs)
+#   - docs: Documentation only changes
+#   - feat: A new feature
+#   - fix: A bug fix
+#   - perf: A code change that improves performance
+#   - refactor: A code change that neither fixes a bug nor adds a feature
+#   - style: Changes that do not affect the meaning of the code (white-space,
+#     formatting, missing semi-colons, etc)
+#   - test: Adding missing tests or correcting existing tests
+###
+
+
+###
+# Insert a body above this line  (optional)
+#
+# The body should include the motivation for the change and contrast this with
+# previous behavior.
+###
+
+
+###
+# Insert a footer above this line (optional)
+#
+# The footer should contain any information about Breaking Changes and is also
+# the place to reference GitHub
+# issues that this commit closes.
+#
+# Breaking Changes should start with the word BREAKING CHANGE: with a space or
+# two newlines. The rest of the  commit message is then used for this.
+###

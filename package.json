@@ -1,6 +1,6 @@
 {
   "name": "megadata",
-  "version": "0.0.0-development",
+  "version": "1.1.4",
   "description": "Smart messaging for games",
   "main": "./lib/index.js",
   "types": "./lib/index.d.ts",
