@@ -1,5 +1,6 @@
 import { EventEmitter2 as EventEmitter } from 'eventemitter2'
 import MessageType, { MessageTypeData, IMessageType } from './MessageType'
+import { MessageBufferPool, IBufferConfig, BufferStrategy } from './MessageBuffer'
 
 /**
  * Setup events auto-loading for all instances of this class
@@ -56,6 +57,7 @@ function getTypeEventName<T extends MessageType>(type: IMessageType<T> | Event):
  * and emitting messages.
  */
 export default class MessageEmitter {
+
   /**
    * Known events
    *
@@ -163,17 +165,20 @@ export default class MessageEmitter {
    * @param type
    * @param data
    */
-  public send<T extends MessageType>(type: IMessageType<T>, data: MessageTypeData<T>)  {
+  public send<T extends MessageType, S extends BufferStrategy>(type: IMessageType<T>, data: MessageTypeData<T>, bufferConfig?: IBufferConfig<S>)  {
     if (!this._send) {
       throw new Error('Instance not configured with a send function')
     }
 
-    const message = type.create(data)
-    const buffer = message.pack()
+    if (bufferConfig) {
+      MessageBufferPool.pool({ type, data, send: this._send, config: bufferConfig })
 
-    this._send(buffer)
-
-    message.release()
+    } else {
+      const message = type.create(data)
+      const buffer = message.pack()
+      this._send(buffer)
+      message.release()
+    }
   }
 
   /**

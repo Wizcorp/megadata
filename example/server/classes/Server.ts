@@ -25,9 +25,9 @@ export interface IPlayer extends MessageEmitter {
 export default class Server extends WebSocketServer {
   constructor(options: IServerOptions, callback?: () => void) {
     super(options, () => {
+
       this.on('connection', (ws) => {
         const player = new Player({ send: (buffer) => ws.send(buffer) })
-
         player.on(Event.Ignored, (message) => console.warn(
           `received message of type ${message.constructor.name}`,
           `but no listeners are set for it`
