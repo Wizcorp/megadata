@@ -23,7 +23,10 @@ export interface IMessageType<T> {
 }
 
 // tslint:disable:completed-docs
-export type Diff<T extends string, U extends string> = ({[P in T]: P } & {[P in U]: never } & { [x: string]: never })[T]
+type Key = string | number | symbol
+
+// tslint:disable:completed-docs
+export type Diff<T extends Key, U extends Key> = ({[P in T]: P } & {[P in U]: never } & { [x: string]: never })[T]
 
 // tslint:disable:completed-docs
 export type Omit<T, K extends keyof T> = Pick<T, Diff<keyof T, K>>
