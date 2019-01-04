@@ -87,7 +87,7 @@
     "@types/mocha": "^5.2.5",
     "@types/node": "^10.11.6",
     "@types/uws": "^0.13.2",
-    "babel-loader": "^8.0.4",
+    "babel-loader": "^8.0.5",
     "copy-webpack-plugin": "^4.5.3",
     "coveralls": "^3.0.2",
     "electron": "^3.0.3",
