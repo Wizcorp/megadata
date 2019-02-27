@@ -90,7 +90,7 @@
     "babel-loader": "^8.0.4",
     "copy-webpack-plugin": "^4.5.3",
     "coveralls": "^3.0.2",
-    "electron": "^3.0.3",
+    "electron": "^4.0.6",
     "git-message": "^2.0.2",
     "html-webpack-plugin": "^3.2.0",
     "husky": "^1.1.1",
