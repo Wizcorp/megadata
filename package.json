@@ -103,7 +103,7 @@
     "travis-deploy-once": "^5.0.9",
     "ts-loader": "^5.2.1",
     "ts-node": "^7.0.1",
-    "tsconfig-paths": "^3.6.0",
+    "tsconfig-paths": "^3.9.0",
     "tsconfig-paths-webpack-plugin": "^3.2.0",
     "tslint": "^5.11.0",
     "typescript": "^3.1.2",
