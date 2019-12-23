@@ -114,7 +114,7 @@
   },
   "dependencies": {
     "@types/webpack-env": "^1.13.6",
-    "eventemitter2": "^5.0.1",
+    "eventemitter2": "^6.0.0",
     "is-there": "^4.4.3"
   }
 }
